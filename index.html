@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ishanvi's Savings Account 🌟</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --mint: #4ECBA6;
+    --mint-light: #E0F7F0;
+    --mint-dark: #2A9E7A;
+    --gold: #F9B941;
+    --gold-light: #FFF6E0;
+    --coral: #FF7E6B;
+    --coral-light: #FFF0EE;
+    --purple: #9B7FE8;
+    --purple-light: #F0ECFF;
+    --bg: #F5F9FF;
+    --card: #FFFFFF;
+    --text: #2D2D3A;
+    --muted: #7A7A9A;
+    --border: #E8EBF5;
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  header {
+    background: linear-gradient(135deg, #4ECBA6 0%, #2E86C1 100%);
+    padding: 28px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: 0; right: 0;
+    height: 60px;
+    background: var(--bg);
+    border-radius: 50% 50% 0 0 / 60px;
+  }
+  header .stars {
+    font-size: 22px;
+    letter-spacing: 4px;
+    margin-bottom: 6px;
+  }
+  header h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 32px;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  header p {
+    color: rgba(255,255,255,0.9);
+    font-size: 15px;
+    margin-top: 4px;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .balance-card {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 28px 28px 24px;
+    margin-top: -20px;
+    box-shadow: 0 8px 32px rgba(46, 134, 193, 0.12);
+    border: 1.5px solid var(--border);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+  .balance-label {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .balance-amount {
+    font-family: 'Baloo 2', cursive;
+    font-size: 54px;
+    color: var(--mint-dark);
+    line-height: 1;
+    font-weight: 800;
+  }
+  .balance-amount span { font-size: 30px; vertical-align: super; }
+  .balance-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .stats-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .stat-pill {
+    flex: 1;
+    padding: 12px 10px;
+    border-radius: 14px;
+    text-align: center;
+  }
+  .stat-pill.credit { background: var(--mint-light); }
+  .stat-pill.debit { background: var(--coral-light); }
+  .stat-pill .amount {
+    font-size: 20px;
+    font-weight: 800;
+    display: block;
+    line-height: 1;
+  }
+  .stat-pill.credit .amount { color: var(--mint-dark); }
+  .stat-pill.debit .amount { color: var(--coral); }
+  .stat-pill .lbl { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-top: 3px; display: block; }
+
+  .section-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 20px;
+    margin: 28px 0 12px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .emoji { font-size: 22px; }
+
+  .form-card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 22px 22px 20px;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  }
+
+  .type-toggle {
+    display: flex;
+    background: var(--bg);
+    border-radius: 14px;
+    padding: 4px;
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+  .type-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 11px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: transparent;
+    color: var(--muted);
+  }
+  .type-btn.active.credit { background: var(--mint); color: white; box-shadow: 0 3px 10px rgba(78, 203, 166, 0.35); }
+  .type-btn.active.debit { background: var(--coral); color: white; box-shadow: 0 3px 10px rgba(255, 126, 107, 0.35); }
+
+  .form-row { margin-bottom: 14px; }
+  .form-row label { display: block; font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .form-row input, .form-row select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    background: var(--bg);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-row input:focus, .form-row select:focus {
+    border-color: var(--mint);
+    box-shadow: 0 0 0 3px rgba(78, 203, 166, 0.15);
+    background: white;
+  }
+
+  .add-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 4px;
+  }
+  .add-btn.credit-mode { background: var(--mint); color: white; box-shadow: 0 4px 16px rgba(78, 203, 166, 0.4); }
+  .add-btn.debit-mode { background: var(--coral); color: white; box-shadow: 0 4px 16px rgba(255, 126, 107, 0.4); }
+  .add-btn:hover { transform: translateY(-1px); filter: brightness(1.06); }
+  .add-btn:active { transform: scale(0.98); }
+
+  .toast {
+    position: fixed;
+    bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: #2D2D3A;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 14px;
+    z-index: 999;
+    transition: transform 0.3s cubic-bezier(.17,.67,.36,1.3);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  .transaction-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .tx-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 14px 16px;
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    animation: slideIn 0.3s ease;
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .tx-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .tx-icon.credit { background: var(--mint-light); }
+  .tx-icon.debit { background: var(--coral-light); }
+  .tx-info { flex: 1; min-width: 0; }
+  .tx-desc { font-weight: 700; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tx-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .tx-amount { font-weight: 800; font-size: 18px; flex-shrink: 0; }
+  .tx-amount.credit { color: var(--mint-dark); }
+  .tx-amount.debit { color: var(--coral); }
+  .tx-delete {
+    width: 28px; height: 28px;
+    border: none; background: none;
+    color: var(--muted);
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s, color 0.15s;
+    flex-shrink: 0;
+  }
+  .tx-delete:hover { background: var(--coral-light); color: var(--coral); }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+  }
+  .empty-state .big { font-size: 52px; margin-bottom: 10px; }
+  .empty-state p { font-weight: 600; font-size: 15px; }
+
+  .piggy-progress {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 20px 22px;
+    border: 1.5px solid var(--border);
+    margin-top: 0;
+  }
+  .goal-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .goal-title { font-weight: 700; font-size: 14px; }
+  .goal-pct { font-weight: 800; font-size: 15px; color: var(--mint-dark); }
+  .progress-bar {
+    height: 14px;
+    background: var(--mint-light);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--mint), var(--mint-dark));
+    border-radius: 99px;
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+    min-width: 0;
+  }
+  .goal-input-row { display: flex; gap: 8px; margin-top: 12px; }
+  .goal-input-row input {
+    flex: 1;
+    padding: 9px 12px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    background: var(--bg);
+    outline: none;
+  }
+  .goal-input-row input:focus { border-color: var(--mint); background: white; }
+  .goal-set-btn {
+    padding: 9px 16px;
+    border: none;
+    border-radius: 10px;
+    background: var(--purple);
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .goal-set-btn:hover { filter: brightness(1.1); }
+
+  .clear-btn {
+    display: block;
+    margin: 20px auto 0;
+    background: none;
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .clear-btn:hover { border-color: var(--coral); color: var(--coral); background: var(--coral-light); }
+
+  .category-icons {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;
+  }
+  .cat-chip {
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1.5px solid var(--border);
+    background: var(--bg);
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--muted);
+  }
+  .cat-chip:hover { border-color: var(--mint); color: var(--mint-dark); }
+  .cat-chip.selected { background: var(--mint-light); border-color: var(--mint); color: var(--mint-dark); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="stars">⭐ ⭐ ⭐</div>
+  <h1 id="bank-name">Ishanvi's Savings Account 🏦</h1>
+  <p id="bank-tagline">Every rupee saved is a dream getting closer! 💫</p>
+</header>
+
+<div class="container">
+
+  <!-- Balance Card -->
+  <div class="balance-card">
+    <div class="balance-label">Current Balance</div>
+    <div class="balance-amount"><span>₹</span><span id="balance-display">0.00</span></div>
+    <div class="balance-sub" id="txcount-label">No transactions yet</div>
+    <div class="stats-row">
+      <div class="stat-pill credit">
+        <span class="amount" id="total-credits">0.000</span>
+        <span class="lbl">💚 Credit (Money In)</span>
+      </div>
+      <div class="stat-pill debit">
+        <span class="amount" id="total-debits">0.000</span>
+        <span class="lbl">❤️ Debit (Money Out)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Savings Goal -->
+  <div class="section-title"><span class="emoji">🎯</span> My Savings Goal</div>
+  <div class="piggy-progress">
+    <div class="goal-row">
+      <span class="goal-title" id="goal-label">Set a goal to start!</span>
+      <span class="goal-pct" id="goal-pct">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+    <div class="goal-input-row">
+      <input type="number" id="goal-input" placeholder="Enter goal amount (₹)..." min="0" step="0.01">
+      <button class="goal-set-btn" onclick="setGoal()">Set Goal ✨</button>
+    </div>
+  </div>
+
+  <!-- Add Transaction Form -->
+  <div class="section-title"><span class="emoji">➕</span> Add Transaction</div>
+  <div class="form-card">
+    <div class="type-toggle">
+      <button class="type-btn active credit" onclick="setType('credit')" id="btn-credit">💚 Credit — Money In</button>
+      <button class="type-btn debit" onclick="setType('debit')" id="btn-debit">❤️ Debit — Money Out</button>
+    </div>
+
+    <div class="form-row">
+      <label>Category</label>
+      <div class="category-icons" id="cat-chips"></div>
+    </div>
+
+    <div class="form-row">
+      <label>Description</label>
+      <input type="text" id="tx-desc" placeholder="e.g. Pocket money from Dad ..." maxlength="60">
+    </div>
+
+    <div class="form-row">
+      <label>Amount (₹)</label>
+      <input type="number" id="tx-amount" placeholder="0.00" min="0" step="0.01">
+    </div>
+
+    <div class="form-row">
+      <label>Date</label>
+      <input type="date" id="tx-date">
+    </div>
+
+    <button class="add-btn credit-mode" id="add-btn" onclick="addTransaction()">💚 Add Credit (Money In)</button>
+  </div>
+
+  <!-- Transaction History -->
+  <div class="section-title"><span class="emoji">📋</span> Transaction History</div>
+  <div class="transaction-list" id="tx-list">
+    <div class="empty-state">
+      <div class="big">🐷</div>
+      <p>Your piggy bank is waiting!<br>Add your first transaction above.</p>
+    </div>
+  </div>
+
+  <button class="clear-btn" onclick="clearAll()">🗑️ Clear All Transactions</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const CREDIT_CATS = ['🎁 Gift','💵 Allowance','🏆 Reward','🎂 Birthday','🌸 Vishu','👴 Elders','🥇 Prize','🌟 Others'];
+const DEBIT_CATS  = ['🍔 Food','👫 Friends Outing','👗 Dress','💄 Cosmetics','📚 Studies','🤝 Loan','🕌 Charity','🌟 Others'];
+
+let txType = 'credit';
+let selectedCat = '';
+let transactions = JSON.parse(localStorage.getItem('sav_txs') || '[]');
+let goal = parseFloat(localStorage.getItem('sav_goal') || '0');
+
+// Set today's date
+document.getElementById('tx-date').value = new Date().toISOString().split('T')[0];
+
+function buildCats() {
+  const cats = txType === 'credit' ? CREDIT_CATS : DEBIT_CATS;
+  selectedCat = '';
+  const el = document.getElementById('cat-chips');
+  el.innerHTML = cats.map(c => `<button class="cat-chip" onclick="pickCat(this,'${c}')">${c}</button>`).join('');
+}
+
+function pickCat(btn, cat) {
+  document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedCat = cat;
+  if (!document.getElementById('tx-desc').value) {
+    document.getElementById('tx-desc').value = cat.split(' ').slice(1).join(' ');
+  }
+}
+
+function setType(t) {
+  txType = t;
+  document.getElementById('btn-credit').className = 'type-btn' + (t==='credit' ? ' active credit' : '');
+  document.getElementById('btn-debit').className  = 'type-btn' + (t==='debit'  ? ' active debit'  : '');
+  const btn = document.getElementById('add-btn');
+  btn.className = 'add-btn ' + (t==='credit' ? 'credit-mode' : 'debit-mode');
+  btn.textContent = t==='credit' ? '💚 Add Credit (Money In)' : '❤️ Add Debit (Money Out)';
+  buildCats();
+}
+
+function addTransaction() {
+  const desc = document.getElementById('tx-desc').value.trim();
+  const amt  = parseFloat(document.getElementById('tx-amount').value);
+  const date = document.getElementById('tx-date').value;
+  if (!desc) { showToast('⚠️ Please enter a description!'); return; }
+  if (!amt || amt <= 0) { showToast('⚠️ Please enter a valid amount!'); return; }
+  if (!date) { showToast('⚠️ Please pick a date!'); return; }
+
+  const tx = {
+    id: Date.now(),
+    type: txType,
+    cat: selectedCat || (txType==='credit' ? '💰 Other' : '🛍️ Other'),
+    desc,
+    amt,
+    date
+  };
+  transactions.unshift(tx);
+  save();
+  render();
+  document.getElementById('tx-desc').value = '';
+  document.getElementById('tx-amount').value = '';
+  showToast(txType==='credit' ? '💚 Credit entry added!' : '❤️ Debit entry recorded!');
+}
+
+function deleteTransaction(id) {
+  transactions = transactions.filter(t => t.id !== id);
+  save();
+  render();
+  showToast('🗑️ Removed!');
+}
+
+function clearAll() {
+  if (!transactions.length) return;
+  if (confirm('Clear ALL transactions? This cannot be undone!')) {
+    transactions = [];
+    save();
+    render();
+    showToast('🧹 All cleared!');
+  }
+}
+
+function setGoal() {
+  const v = parseFloat(document.getElementById('goal-input').value);
+  if (!v || v <= 0) { showToast('⚠️ Enter a valid goal amount!'); return; }
+  goal = v;
+  localStorage.setItem('sav_goal', goal);
+  render();
+  showToast('🎯 Goal set to ₹' + v.toFixed(2) + '!');
+}
+
+function save() {
+  localStorage.setItem('sav_txs', JSON.stringify(transactions));
+}
+
+function fmt(n) { return n.toFixed(2); }
+
+function render() {
+  const credits = transactions.filter(t=>t.type==='credit').reduce((s,t)=>s+t.amt,0);
+  const debits  = transactions.filter(t=>t.type==='debit').reduce((s,t)=>s+t.amt,0);
+  const balance = credits - debits;
+
+  document.getElementById('balance-display').textContent = fmt(Math.max(0, balance));
+  document.getElementById('total-credits').textContent = fmt(credits);
+  document.getElementById('total-debits').textContent  = fmt(debits);
+  document.getElementById('txcount-label').textContent =
+    transactions.length === 0 ? 'No transactions yet' :
+    transactions.length + ' transaction' + (transactions.length===1?'':'s');
+
+  // Goal progress
+  if (goal > 0) {
+    const pct = Math.min(100, Math.round((balance / goal) * 100));
+    document.getElementById('goal-label').textContent = `₹${fmt(balance)} of ₹${fmt(goal)}`;
+    document.getElementById('goal-pct').textContent   = pct + '%';
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('goal-input').value = '';
+  }
+
+  // Transaction list
+  const list = document.getElementById('tx-list');
+  if (!transactions.length) {
+    list.innerHTML = `<div class="empty-state"><div class="big">🐷</div><p>Your piggy bank is waiting!<br>Add your first transaction above.</p></div>`;
+    return;
+  }
+  list.innerHTML = transactions.map(tx => {
+    const d = new Date(tx.date + 'T00:00:00').toLocaleDateString('en-IN', {month:'short',day:'numeric',year:'numeric'});
+    return `<div class="tx-card">
+      <div class="tx-icon ${tx.type}">${tx.cat.split(' ')[0]}</div>
+      <div class="tx-info">
+        <div class="tx-desc">${escHtml(tx.desc)}</div>
+        <div class="tx-meta">${tx.cat} &middot; ${d}</div>
+      </div>
+      <div class="tx-amount ${tx.type}">${tx.type==='credit'?'+ CR':' - DR'} ₹${fmt(tx.amt)}</div>
+      <button class="tx-delete" onclick="deleteTransaction(${tx.id})" title="Delete">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+buildCats();
+render();
+</script>
+</body>
+</html>
