@@ -10,19 +10,16 @@
   :root {
     --mint: #4ECBA6; --mint-light: #E0F7F0; --mint-dark: #2A9E7A;
     --coral: #FF7E6B; --coral-light: #FFF0EE;
-    --purple: #9B7FE8;
+    --blue: #2E86C1; --blue-light: #E8F4FD;
+    --gold: #F9B941; --gold-light: #FFF6E0;
+    --purple: #9B7FE8; --purple-light: #F0ECFF;
     --bg: #F5F9FF; --card: #FFFFFF; --text: #2D2D3A; --muted: #7A7A9A; --border: #E8EBF5;
   }
   body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 0 0 60px; }
 
-  #setup-screen {
-    min-height: 100vh; display: flex; align-items: center; justify-content: center;
-    padding: 24px; background: linear-gradient(135deg, #4ECBA6 0%, #2E86C1 100%);
-  }
-  .setup-card {
-    background: white; border-radius: 24px; padding: 36px 28px; max-width: 440px; width: 100%;
-    box-shadow: 0 16px 48px rgba(0,0,0,0.15); text-align: center;
-  }
+  /* SETUP SCREEN */
+  #setup-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; background: linear-gradient(135deg, #4ECBA6 0%, #2E86C1 100%); }
+  .setup-card { background: white; border-radius: 24px; padding: 36px 28px; max-width: 440px; width: 100%; box-shadow: 0 16px 48px rgba(0,0,0,0.15); text-align: center; }
   .setup-card .logo { font-size: 52px; margin-bottom: 12px; }
   .setup-card h2 { font-family: 'Baloo 2', cursive; font-size: 24px; color: var(--text); margin-bottom: 8px; }
   .setup-card > p { font-size: 14px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
@@ -32,26 +29,15 @@
   .steps li { font-size: 12px; color: var(--muted); margin-bottom: 6px; line-height: 1.6; }
   .steps li a { color: var(--mint-dark); font-weight: 700; }
   .steps li strong { color: var(--text); }
-  .setup-card input {
-    width: 100%; padding: 13px 16px; border-radius: 12px; border: 1.5px solid var(--border);
-    font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 600; color: var(--text);
-    background: var(--bg); outline: none; margin-bottom: 10px;
-  }
+  .setup-card input { width: 100%; padding: 13px 16px; border-radius: 12px; border: 1.5px solid var(--border); font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 600; color: var(--text); background: var(--bg); outline: none; margin-bottom: 10px; }
   .setup-card input:focus { border-color: var(--mint); background: white; }
-  .setup-btn {
-    width: 100%; padding: 14px; border: none; border-radius: 14px;
-    background: var(--mint); color: white; font-family: 'Nunito', sans-serif;
-    font-size: 16px; font-weight: 800; cursor: pointer; margin-top: 4px;
-    box-shadow: 0 4px 16px rgba(78,203,166,0.4); transition: all 0.2s;
-  }
+  .setup-btn { width: 100%; padding: 14px; border: none; border-radius: 14px; background: var(--mint); color: white; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 800; cursor: pointer; margin-top: 4px; box-shadow: 0 4px 16px rgba(78,203,166,0.4); transition: all 0.2s; }
   .setup-btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
   .setup-note { font-size: 12px; color: var(--muted); margin-top: 14px; line-height: 1.6; }
 
+  /* APP */
   #app-screen { display: none; }
-  header {
-    background: linear-gradient(135deg, #4ECBA6 0%, #2E86C1 100%);
-    padding: 28px 24px 60px; text-align: center; position: relative; overflow: hidden;
-  }
+  header { background: linear-gradient(135deg, #4ECBA6 0%, #2E86C1 100%); padding: 28px 24px 70px; text-align: center; position: relative; overflow: hidden; }
   header::before { content: ''; position: absolute; bottom: -30px; left: 0; right: 0; height: 60px; background: var(--bg); border-radius: 50% 50% 0 0 / 60px; }
   header .stars { font-size: 22px; letter-spacing: 4px; margin-bottom: 6px; }
   header h1 { font-family: 'Baloo 2', cursive; font-size: 30px; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.15); }
@@ -61,22 +47,45 @@
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
   .container { max-width: 680px; margin: 0 auto; padding: 0 20px; }
-  .balance-card { background: var(--card); border-radius: 24px; padding: 28px 28px 24px; margin-top: -20px; box-shadow: 0 8px 32px rgba(46,134,193,0.12); border: 1.5px solid var(--border); text-align: center; position: relative; z-index: 2; }
-  .balance-label { font-size: 13px; color: var(--muted); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
-  .balance-amount { font-family: 'Baloo 2', cursive; font-size: 54px; color: var(--mint-dark); line-height: 1; font-weight: 800; }
-  .balance-amount span { font-size: 30px; vertical-align: super; }
-  .balance-sub { font-size: 13px; color: var(--muted); margin-top: 8px; }
-  .stats-row { display: flex; gap: 12px; margin-top: 20px; }
-  .stat-pill { flex: 1; padding: 12px 10px; border-radius: 14px; text-align: center; }
+
+  /* TOTAL SAVINGS HERO */
+  .total-card { background: var(--card); border-radius: 24px; padding: 24px 24px 20px; margin-top: -20px; box-shadow: 0 8px 32px rgba(46,134,193,0.12); border: 1.5px solid var(--border); text-align: center; position: relative; z-index: 2; }
+  .total-label { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .total-amount { font-family: 'Baloo 2', cursive; font-size: 50px; color: var(--blue); line-height: 1; font-weight: 800; }
+  .total-amount sup { font-size: 26px; vertical-align: super; }
+  .total-sub { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+  /* CASH + ACCOUNT ROW */
+  .wallet-row { display: flex; gap: 12px; margin-top: 16px; }
+  .wallet-card { flex: 1; border-radius: 18px; padding: 16px 14px; text-align: center; border: 1.5px solid var(--border); }
+  .wallet-card.cash { background: var(--gold-light); border-color: #f9d98a; }
+  .wallet-card.bank { background: var(--blue-light); border-color: #a8d4f0; }
+  .wallet-card .w-icon { font-size: 26px; margin-bottom: 4px; }
+  .wallet-card .w-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 4px; }
+  .wallet-card .w-amount { font-family: 'Baloo 2', cursive; font-size: 24px; font-weight: 800; line-height: 1; }
+  .wallet-card.cash .w-amount { color: #c47f00; }
+  .wallet-card.bank .w-amount { color: var(--blue); }
+  .wallet-card .w-sub { font-size: 10px; color: var(--muted); margin-top: 3px; font-weight: 600; }
+
+  /* DEPOSIT STRIP */
+  .deposit-strip { background: var(--blue-light); border: 1.5px solid #a8d4f0; border-radius: 14px; padding: 12px 16px; margin-top: 12px; display: flex; align-items: center; gap: 10px; }
+  .deposit-strip .ds-label { font-size: 13px; font-weight: 700; color: var(--blue); flex: 1; }
+  .deposit-strip input { width: 110px; padding: 8px 10px; border-radius: 10px; border: 1.5px solid #a8d4f0; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; color: var(--text); background: white; outline: none; text-align: right; }
+  .deposit-strip input:focus { border-color: var(--blue); }
+  .deposit-btn { padding: 8px 14px; border: none; border-radius: 10px; background: var(--blue); color: white; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 12px; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+  .deposit-btn:hover { filter: brightness(1.1); }
+
+  /* CREDIT/DEBIT STATS */
+  .stats-row { display: flex; gap: 12px; margin-top: 12px; }
+  .stat-pill { flex: 1; padding: 10px 8px; border-radius: 14px; text-align: center; }
   .stat-pill.credit { background: var(--mint-light); }
   .stat-pill.debit { background: var(--coral-light); }
-  .stat-pill .amount { font-size: 20px; font-weight: 800; display: block; line-height: 1; }
+  .stat-pill .amount { font-size: 18px; font-weight: 800; display: block; line-height: 1; }
   .stat-pill.credit .amount { color: var(--mint-dark); }
   .stat-pill.debit .amount { color: var(--coral); }
-  .stat-pill .lbl { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-top: 3px; display: block; }
+  .stat-pill .lbl { font-size: 10px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; margin-top: 3px; display: block; }
 
-  .section-title { font-family: 'Baloo 2', cursive; font-size: 20px; margin: 28px 0 12px; color: var(--text); display: flex; align-items: center; gap: 8px; }
-  .section-title .emoji { font-size: 22px; }
+  .section-title { font-family: 'Baloo 2', cursive; font-size: 20px; margin: 24px 0 12px; color: var(--text); display: flex; align-items: center; gap: 8px; }
 
   .form-card { background: var(--card); border-radius: 20px; padding: 22px 22px 20px; border: 1.5px solid var(--border); box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
   .type-toggle { display: flex; background: var(--bg); border-radius: 14px; padding: 4px; gap: 4px; margin-bottom: 16px; }
@@ -85,8 +94,8 @@
   .type-btn.active.debit { background: var(--coral); color: white; box-shadow: 0 3px 10px rgba(255,126,107,0.35); }
   .form-row { margin-bottom: 14px; }
   .form-row label { display: block; font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
-  .form-row input { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--border); font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); background: var(--bg); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
-  .form-row input:focus { border-color: var(--mint); box-shadow: 0 0 0 3px rgba(78,203,166,0.15); background: white; }
+  .form-row input, .form-row select { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--border); font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); background: var(--bg); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+  .form-row input:focus, .form-row select:focus { border-color: var(--mint); box-shadow: 0 0 0 3px rgba(78,203,166,0.15); background: white; }
   .add-btn { width: 100%; padding: 14px; border: none; border-radius: 14px; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 800; cursor: pointer; transition: all 0.2s; margin-top: 4px; }
   .add-btn.credit-mode { background: var(--mint); color: white; box-shadow: 0 4px 16px rgba(78,203,166,0.4); }
   .add-btn.debit-mode { background: var(--coral); color: white; box-shadow: 0 4px 16px rgba(255,126,107,0.4); }
@@ -103,12 +112,14 @@
   .tx-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
   .tx-icon.credit { background: var(--mint-light); }
   .tx-icon.debit { background: var(--coral-light); }
+  .tx-icon.deposit { background: var(--blue-light); }
   .tx-info { flex: 1; min-width: 0; }
   .tx-desc { font-weight: 700; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tx-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
   .tx-amount { font-weight: 800; font-size: 16px; flex-shrink: 0; }
   .tx-amount.credit { color: var(--mint-dark); }
   .tx-amount.debit { color: var(--coral); }
+  .tx-amount.deposit { color: var(--blue); }
   .tx-delete { width: 28px; height: 28px; border: none; background: none; color: var(--muted); cursor: pointer; border-radius: 8px; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: background 0.15s, color 0.15s; flex-shrink: 0; }
   .tx-delete:hover { background: var(--coral-light); color: var(--coral); }
   .empty-state { text-align: center; padding: 40px 20px; color: var(--muted); }
@@ -139,6 +150,8 @@
   .loading { text-align: center; padding: 30px; color: var(--muted); font-weight: 700; font-size: 14px; }
   .spinner { display: inline-block; width: 24px; height: 24px; border: 3px solid var(--mint-light); border-top-color: var(--mint); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 8px; }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  .badge-deposit { display: inline-block; background: var(--blue-light); color: var(--blue); font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px; margin-left: 4px; vertical-align: middle; }
 </style>
 </head>
 <body>
@@ -149,7 +162,6 @@
     <div class="logo">🏦</div>
     <h2>Ishanvi's Savings Account</h2>
     <p>Enter your Firebase database URL below to sync data across all devices in real time.</p>
-
     <div class="steps">
       <p>📋 Get your free Firebase URL (2 mins):</p>
       <ol>
@@ -157,14 +169,13 @@
         <li>Click <strong>Add project</strong> → name it <em>ishanvi-savings</em> → Continue → Create project</li>
         <li>In the left menu: <strong>Build → Realtime Database → Create Database</strong></li>
         <li>Choose any location → select <strong>Start in test mode</strong> → Enable</li>
-        <li>Copy the URL shown at the top (e.g. <em>https://ishanvi-savings-xxxxx-default-rtdb.firebaseio.com</em>)</li>
+        <li>Copy the URL shown (e.g. <em>https://ishanvi-savings-default-rtdb.firebaseio.com</em>)</li>
         <li>Paste it below — do this once on each device!</li>
       </ol>
     </div>
-
     <input type="url" id="firebase-url" placeholder="https://your-project-default-rtdb.firebaseio.com" />
     <button class="setup-btn" onclick="connectFirebase()">🔗 Connect &amp; Open App</button>
-    <p class="setup-note">Both you and Ishanvi paste the <strong>same URL</strong> once on your devices. After that it opens directly every time.</p>
+    <p class="setup-note">Both you and Ishanvi paste the <strong>same URL</strong> once. After that it opens directly every time.</p>
   </div>
 </div>
 
@@ -179,23 +190,50 @@
 
   <div class="container">
 
-    <div class="balance-card">
-      <div class="balance-label">Current Balance</div>
-      <div class="balance-amount"><span>₹</span><span id="balance-display">0.00</span></div>
-      <div class="balance-sub" id="txcount-label">Loading...</div>
+    <!-- TOTAL SAVINGS -->
+    <div class="total-card">
+      <div class="total-label">💰 Total Savings</div>
+      <div class="total-amount"><sup>₹</sup><span id="total-savings-display">0.00</span></div>
+      <div class="total-sub" id="txcount-label">Loading...</div>
+
+      <!-- CASH + BANK -->
+      <div class="wallet-row">
+        <div class="wallet-card cash">
+          <div class="w-icon">💵</div>
+          <div class="w-label">Cash in Hand</div>
+          <div class="w-amount">₹<span id="cash-display">0.00</span></div>
+          <div class="w-sub">Money with Ishanvi</div>
+        </div>
+        <div class="wallet-card bank">
+          <div class="w-icon">🏦</div>
+          <div class="w-label">Account Balance</div>
+          <div class="w-amount">₹<span id="bank-display">0.00</span></div>
+          <div class="w-sub">Deposited in bank</div>
+        </div>
+      </div>
+
+      <!-- DEPOSIT TO BANK -->
+      <div class="deposit-strip">
+        <span class="ds-label">🏦 Deposit cash to bank account</span>
+        <input type="number" id="deposit-amt" placeholder="₹ amount" min="0" step="0.01">
+        <button class="deposit-btn" onclick="depositToBank()">Deposit</button>
+      </div>
+
+      <!-- CREDIT / DEBIT TOTALS -->
       <div class="stats-row">
         <div class="stat-pill credit">
           <span class="amount" id="total-credits">0.00</span>
-          <span class="lbl">💚 Credit (Money In)</span>
+          <span class="lbl">💚 Total Credit</span>
         </div>
         <div class="stat-pill debit">
           <span class="amount" id="total-debits">0.00</span>
-          <span class="lbl">❤️ Debit (Money Out)</span>
+          <span class="lbl">❤️ Total Debit</span>
         </div>
       </div>
     </div>
 
-    <div class="section-title"><span class="emoji">🎯</span> My Savings Goal</div>
+    <!-- SAVINGS GOAL -->
+    <div class="section-title"><span>🎯</span> My Savings Goal</div>
     <div class="piggy-progress">
       <div class="goal-row">
         <span class="goal-title" id="goal-label">Set a goal to start!</span>
@@ -208,7 +246,8 @@
       </div>
     </div>
 
-    <div class="section-title"><span class="emoji">➕</span> Add Transaction</div>
+    <!-- ADD TRANSACTION -->
+    <div class="section-title"><span>➕</span> Add Transaction</div>
     <div class="form-card">
       <div class="type-toggle">
         <button class="type-btn active credit" onclick="setType('credit')" id="btn-credit">💚 Credit — Money In</button>
@@ -233,14 +272,14 @@
       <button class="add-btn credit-mode" id="add-btn" onclick="addTransaction()">💚 Add Credit (Money In)</button>
     </div>
 
-    <div class="section-title"><span class="emoji">📋</span> Transaction History</div>
+    <!-- TRANSACTION HISTORY -->
+    <div class="section-title"><span>📋</span> Transaction History</div>
     <div class="transaction-list" id="tx-list">
       <div class="loading"><div class="spinner"></div><br>Loading transactions...</div>
     </div>
 
     <button class="clear-btn" onclick="clearAll()">🗑️ Clear All Transactions</button>
     <span class="reset-link" onclick="resetConnection()">⚙️ Change Firebase URL</span>
-
   </div>
 </div>
 
@@ -255,11 +294,10 @@ const DEBIT_CATS  = ['🍔 Food','👫 Friends Outing','👗 Dress','💄 Cosmet
 
 let txType = 'credit';
 let selectedCat = '';
-let db = null;
-let txRef = null;
-let goalRef = null;
+let db = null, txRef = null, goalRef = null;
 window._goal = 0;
-window._balance = 0;
+window._cash = 0;
+window._bank = 0;
 
 document.getElementById('tx-date').value = new Date().toISOString().split('T')[0];
 
@@ -278,19 +316,16 @@ function initApp(url) {
   try {
     const app = initializeApp({ databaseURL: url });
     db = getDatabase(app);
-    txRef = ref(db, 'transactions');
+    txRef   = ref(db, 'transactions');
     goalRef = ref(db, 'goal');
     document.getElementById('setup-screen').style.display = 'none';
     document.getElementById('app-screen').style.display = 'block';
     onValue(txRef, snap => {
       const data = snap.val() || {};
-      const txs = Object.entries(data).map(([id, v]) => ({ id, ...v })).sort((a,b) => b.ts - a.ts);
+      const txs = Object.entries(data).map(([id,v]) => ({id,...v})).sort((a,b) => b.ts - a.ts);
       renderList(txs);
     });
-    onValue(goalRef, snap => {
-      window._goal = snap.val() || 0;
-      updateGoalUI();
-    });
+    onValue(goalRef, snap => { window._goal = snap.val() || 0; updateGoalUI(); });
     buildCats();
   } catch(e) {
     showToast('❌ Could not connect. Check the URL!');
@@ -301,33 +336,30 @@ function initApp(url) {
 }
 
 window.resetConnection = function() {
-  if (confirm('Change Firebase URL? You will be taken back to the setup screen.')) {
-    localStorage.removeItem('ishanvi_fb_url');
-    location.reload();
-  }
+  if (confirm('Change Firebase URL?')) { localStorage.removeItem('ishanvi_fb_url'); location.reload(); }
 };
 
 function buildCats() {
   const cats = txType === 'credit' ? CREDIT_CATS : DEBIT_CATS;
   selectedCat = '';
-  const el = document.getElementById('cat-chips');
-  el.innerHTML = cats.map(c => `<button class="cat-chip" onclick="pickCat(this,'${c}')">${c}</button>`).join('');
+  document.getElementById('cat-chips').innerHTML =
+    cats.map(c => `<button class="cat-chip" onclick="pickCat(this,'${c}')">${c}</button>`).join('');
 }
 
 window.pickCat = function(btn, cat) {
   document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   selectedCat = cat;
-  const descEl = document.getElementById('tx-desc');
-  if (!descEl.value) descEl.value = cat.split(' ').slice(1).join(' ');
+  const d = document.getElementById('tx-desc');
+  if (!d.value) d.value = cat.split(' ').slice(1).join(' ');
 };
 
 window.setType = function(t) {
   txType = t;
-  document.getElementById('btn-credit').className = 'type-btn' + (t==='credit' ? ' active credit' : '');
-  document.getElementById('btn-debit').className  = 'type-btn' + (t==='debit'  ? ' active debit'  : '');
+  document.getElementById('btn-credit').className = 'type-btn' + (t==='credit'?' active credit':'');
+  document.getElementById('btn-debit').className  = 'type-btn' + (t==='debit' ?' active debit' :'');
   const btn = document.getElementById('add-btn');
-  btn.className = 'add-btn ' + (t==='credit' ? 'credit-mode' : 'debit-mode');
+  btn.className   = 'add-btn ' + (t==='credit' ? 'credit-mode' : 'debit-mode');
   btn.textContent = t==='credit' ? '💚 Add Credit (Money In)' : '❤️ Add Debit (Money Out)';
   buildCats();
 };
@@ -340,16 +372,30 @@ window.addTransaction = async function() {
   if (!amt || amt <= 0) { showToast('⚠️ Please enter a valid amount!'); return; }
   if (!date) { showToast('⚠️ Please pick a date!'); return; }
   const btn = document.getElementById('add-btn');
-  btn.disabled = true;
-  btn.textContent = 'Saving...';
+  btn.disabled = true; btn.textContent = 'Saving...';
   try {
-    await push(txRef, { type: txType, cat: selectedCat || '🌟 Others', desc, amt, date, ts: Date.now() });
+    await push(txRef, { type: txType, cat: selectedCat||'🌟 Others', desc, amt, date, ts: Date.now() });
     document.getElementById('tx-desc').value = '';
     document.getElementById('tx-amount').value = '';
     showToast(txType==='credit' ? '💚 Credit entry added!' : '❤️ Debit entry recorded!');
   } catch(e) { showToast('❌ Failed to save. Check connection.'); }
   btn.disabled = false;
   btn.textContent = txType==='credit' ? '💚 Add Credit (Money In)' : '❤️ Add Debit (Money Out)';
+};
+
+// Deposit: moves amount from cash to bank
+window.depositToBank = async function() {
+  const amt = parseFloat(document.getElementById('deposit-amt').value);
+  if (!amt || amt <= 0) { showToast('⚠️ Enter a valid deposit amount!'); return; }
+  if (amt > window._cash) { showToast('⚠️ Not enough cash in hand!'); return; }
+  try {
+    await push(txRef, {
+      type: 'deposit', cat: '🏦 Bank Deposit', desc: 'Deposited to bank account',
+      amt, date: new Date().toISOString().split('T')[0], ts: Date.now()
+    });
+    document.getElementById('deposit-amt').value = '';
+    showToast('🏦 Deposited ₹' + amt.toFixed(2) + ' to bank!');
+  } catch(e) { showToast('❌ Failed. Check connection.'); }
 };
 
 window.deleteTransaction = async function(id) {
@@ -372,32 +418,49 @@ window.setGoal = async function() {
   showToast('🎯 Goal set to ₹' + v.toFixed(2) + '!');
 };
 
-function fmt(n) { return Number(n).toFixed(2); }
+function fmt(n) { return Number(n||0).toFixed(2); }
 
 function renderList(txs) {
-  const credits = txs.filter(t=>t.type==='credit').reduce((s,t)=>s+t.amt,0);
-  const debits  = txs.filter(t=>t.type==='debit').reduce((s,t)=>s+t.amt,0);
-  window._balance = credits - debits;
-  document.getElementById('balance-display').textContent = fmt(Math.max(0, window._balance));
+  // Cash in hand = credits - debits - deposits
+  const credits  = txs.filter(t=>t.type==='credit').reduce((s,t)=>s+t.amt,0);
+  const debits   = txs.filter(t=>t.type==='debit').reduce((s,t)=>s+t.amt,0);
+  const deposits = txs.filter(t=>t.type==='deposit').reduce((s,t)=>s+t.amt,0);
+  window._cash = Math.max(0, credits - debits - deposits);
+  window._bank = deposits;
+  const totalSavings = window._cash + window._bank;
+  window._balance = totalSavings;
+
+  document.getElementById('total-savings-display').textContent = fmt(totalSavings);
+  document.getElementById('cash-display').textContent = fmt(window._cash);
+  document.getElementById('bank-display').textContent = fmt(window._bank);
   document.getElementById('total-credits').textContent = fmt(credits);
   document.getElementById('total-debits').textContent  = fmt(debits);
+
+  const count = txs.filter(t=>t.type!=='deposit').length;
   document.getElementById('txcount-label').textContent =
-    txs.length === 0 ? 'No transactions yet' : txs.length + ' transaction' + (txs.length===1?'':'s');
+    count === 0 ? 'No transactions yet' : count + ' transaction' + (count===1?'':'s');
+
   updateGoalUI();
+
   const list = document.getElementById('tx-list');
   if (!txs.length) {
     list.innerHTML = `<div class="empty-state"><div class="big">🐷</div><p>Your piggy bank is waiting!<br>Add your first transaction above.</p></div>`;
     return;
   }
   list.innerHTML = txs.map(tx => {
-    const d = new Date(tx.date + 'T00:00:00').toLocaleDateString('en-IN', {month:'short',day:'numeric',year:'numeric'});
+    const d = new Date(tx.date+'T00:00:00').toLocaleDateString('en-IN',{month:'short',day:'numeric',year:'numeric'});
+    const isDeposit = tx.type === 'deposit';
+    const icon  = isDeposit ? '🏦' : (tx.cat||'🌟').split(' ')[0];
+    const cls   = isDeposit ? 'deposit' : tx.type;
+    const badge = isDeposit ? '<span class="badge-deposit">BANK</span>' : '';
+    const sign  = isDeposit ? '🏦 DEP' : (tx.type==='credit'?'+ CR':'- DR');
     return `<div class="tx-card">
-      <div class="tx-icon ${tx.type}">${(tx.cat||'🌟').split(' ')[0]}</div>
+      <div class="tx-icon ${cls}">${icon}</div>
       <div class="tx-info">
-        <div class="tx-desc">${escHtml(tx.desc)}</div>
-        <div class="tx-meta">${escHtml(tx.cat)} &middot; ${d}</div>
+        <div class="tx-desc">${escHtml(tx.desc)}${badge}</div>
+        <div class="tx-meta">${escHtml(tx.cat)} · ${d}</div>
       </div>
-      <div class="tx-amount ${tx.type}">${tx.type==='credit'?'+ CR':'- DR'} ₹${fmt(tx.amt)}</div>
+      <div class="tx-amount ${cls}">${sign} ₹${fmt(tx.amt)}</div>
       <button class="tx-delete" onclick="deleteTransaction('${tx.id}')" title="Delete">✕</button>
     </div>`;
   }).join('');
@@ -405,7 +468,7 @@ function renderList(txs) {
 
 function updateGoalUI() {
   if (window._goal > 0) {
-    const pct = Math.min(100, Math.round((window._balance / window._goal) * 100));
+    const pct = Math.min(100, Math.round((window._balance / window._goal)*100));
     document.getElementById('goal-label').textContent = `₹${fmt(window._balance)} of ₹${fmt(window._goal)}`;
     document.getElementById('goal-pct').textContent   = pct + '%';
     document.getElementById('progress-fill').style.width = pct + '%';
@@ -415,11 +478,10 @@ function updateGoalUI() {
 function escHtml(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2400);
+  setTimeout(()=>t.classList.remove('show'), 2400);
 }
 window.showToast = showToast;
 </script>
