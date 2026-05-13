@@ -231,7 +231,7 @@
           <div class="w-label">Account Balance</div>
           <div class="w-amount">₹<span id="bank-display">0.00</span></div>
           <div class="bank-breakdown">
-            <div class="bb-row"><span>🏛️ Opening Balance</span><span id="bb-opening">₹0.00</span></div>
+            <div class="bb-row"><span>🏛️ Opening Balance</span><span id="bb-opening">₹44,000.00</span></div>
             <div class="bb-row"><span>🏦 Deposits</span><span id="bb-deposits">₹0.00</span></div>
             <div class="bb-row"><span>💹 Interest Earned</span><span id="bb-interest">₹0.00</span></div>
           </div>
@@ -245,12 +245,6 @@
         <button class="as-btn dep" onclick="depositToBank()">Deposit</button>
       </div>
 
-      <!-- 2. OPENING / PREVIOUS BALANCE -->
-      <div class="action-strip opening-s">
-        <span class="as-label">🏛️ Opening / Previous balance</span>
-        <input type="number" id="opening-amt" placeholder="₹ amount" min="0" step="0.01">
-        <button class="as-btn opn" onclick="addOpeningBalance()">Add</button>
-      </div>
 
       <!-- 3. BANK INTEREST -->
       <div class="action-strip interest-s">
@@ -431,18 +425,6 @@ window.depositToBank = async function() {
   } catch(e) { showToast('❌ Failed.'); }
 };
 
-// Opening balance: goes straight to bank, no cash movement
-window.addOpeningBalance = async function() {
-  const amt = parseFloat(document.getElementById('opening-amt').value);
-  if (!amt||amt<=0) { showToast('⚠️ Enter a valid amount!'); return; }
-  try {
-    await push(txRef,{type:'opening', cat:'🏛️ Opening Balance', desc:'Previous / opening bank balance',
-      amt, date:new Date().toISOString().split('T')[0], ts:Date.now()});
-    document.getElementById('opening-amt').value = '';
-    showToast('🏛️ Opening balance ₹'+amt.toFixed(2)+' added!');
-  } catch(e) { showToast('❌ Failed.'); }
-};
-
 // Interest: goes straight to bank, no cash movement
 window.addInterest = async function() {
   const amt = parseFloat(document.getElementById('interest-amt').value);
@@ -481,7 +463,7 @@ function renderList(txs) {
   const credits  = txs.filter(t=>t.type==='credit').reduce((s,t)=>s+t.amt,0);
   const debits   = txs.filter(t=>t.type==='debit').reduce((s,t)=>s+t.amt,0);
   const deposits = txs.filter(t=>t.type==='deposit').reduce((s,t)=>s+t.amt,0);
-  const opening  = txs.filter(t=>t.type==='opening').reduce((s,t)=>s+t.amt,0);
+  const opening  = 44000; // Fixed opening balance
   const interest = txs.filter(t=>t.type==='interest').reduce((s,t)=>s+t.amt,0);
 
   // Cash = credits received - debits spent - cash deposited to bank
@@ -494,7 +476,6 @@ function renderList(txs) {
   document.getElementById('total-savings-display').textContent = fmt(totalSavings);
   document.getElementById('cash-display').textContent  = fmt(window._cash);
   document.getElementById('bank-display').textContent  = fmt(window._bank);
-  document.getElementById('bb-opening').textContent    = '₹'+fmt(opening);
   document.getElementById('bb-deposits').textContent   = '₹'+fmt(deposits);
   document.getElementById('bb-interest').textContent   = '₹'+fmt(interest);
   document.getElementById('total-credits').textContent = fmt(credits);
